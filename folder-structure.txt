@@ -1,0 +1,70 @@
+﻿\---components
+|   \---global
+|   |   |   NavBar.js
+|   \---utils
+|   |   |   SimpleDropdown.js
+\---configurations
+\---contexts
+\---models
+|   |   offer.js
+|   |   request.js
+|   |   user.js
+|   |   vehicle.js
+\---oemData
+\---pages
+|   \---api
+|   |   |   hello.js
+|   \---buyers
+|   |   \---[id]
+|   |   |   |   edit.js
+|   |   |   dashboard.js
+|   |   |   login.js
+|   |   |   new.js
+|   \---dealers
+|   |   \---[id]
+|   |   |   |   edit.js
+|   |   |   dashboard.js
+|   |   |   login.js
+|   |   |   new.js
+|   \---offers
+|   |   \---[id]
+|   |   |   |   edit.js
+|   |   |   index.js
+|   |   |   new.js
+|   |   |   [id].js
+|   \---requests
+|   |   \---[id]
+|   |   |   |   edit.js
+|   |   |   index.js
+|   |   |   new.js
+|   |   |   [id].js
+|   \---vehicles
+|   |   \---[id]
+|   |   |   |   edit.js
+|   |   |   index.js
+|   |   |   new.js
+|   |   |   [id].js
+|   |   index.js
+|   |   _app.js
+|   |   _document.js
+\---public
+|   |   favicon.ico
+|   |   next.svg
+|   |   vercel.svg
+\---styles
+|   \---base
+|   \---components
+|   |   \---utils
+|   |   |   |   SimpleDropdown.module.css
+|   |   globals.css
+|   |   Home.module.css
+\---utils
+|   |   db.js
+|   .eslintrc.json
+|   .gitignore
+|   folder-structure.txt
+|   jsconfig.json
+|   next.config.js
+|   package-lock.json
+|   package.json
+|   README.md
