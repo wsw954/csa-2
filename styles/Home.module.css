@@ -1,21 +1,20 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;  /* Vertically center the content */
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 2rem;  /* Adjusted padding for aesthetics */
+  height: 100vh;  /* Takes up the full viewport height */
 }
 
 .description {
   display: inherit;
   justify-content: inherit;
   align-items: inherit;
-  font-size: 0.85rem;
-  max-width: var(--max-width);
-  width: 100%;
-  z-index: 2;
-  font-family: var(--font-mono);
+  font-size: 1rem;  /* Adjusted font size for better readability */
+  text-align: center;  /* Center the text */
+  max-width: 600px;  /* Optional: Maximum width of the description */
+  margin-top: 1rem;  /* Some space between title and description */
 }
 
 .description a {
@@ -107,6 +106,27 @@
 .logo {
   position: relative;
 }
+/* NavBar Styles */
+.navbar {
+  display: flex;
+  justify-content: center;  /* Center the list items */
+  background-color: #f4f4f4;  /* Optional background color for the NavBar */
+  padding: 1rem 0;  /* Some padding to give space above and below the items */
+}
+
+.navbarList {
+  list-style-type: none;  /* Remove default list styling */
+  justify-content: space-between;
+  padding: 0;  /* Remove default padding */
+  margin: 0;  /* Remove default margin */
+  display: flex;  /* Display items horizontally */
+}
+
+.navbarItem {
+  display: inline-block;
+  margin: 0 1.5rem;  /* Spacing between list items */
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {
