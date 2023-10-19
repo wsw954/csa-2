@@ -1,52 +1,40 @@
 // pages/buyers/login.js
-
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import axios from 'axios'; // Assuming you're using axios for HTTP requests
 
-function LoginPage() {
+export default function BuyerLogin() {
   const [email, setEmail] = useState('');
-  const [isLinkSent, setLinkSent] = useState(false);
-  const [emailError, setEmailError] = useState('');
 
-  const handleSendLink = async () => {
-    try {
-      // Check if email exists in the database
-      const response = await axios.get(`/api/check-email?email=${email}`);
-      if (response.data.exists) {
-        await signIn('email', { email });
-        setLinkSent(true);
-      } else {
-        setEmailError('This email is not registered. Please sign up.');
-        // Optionally, redirect the user to the registration page after a few seconds
-        setTimeout(() => {
-          window.location.href = '/pages/buyers/new.js';
-        }, 3000);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle other errors (e.g., show a general error message to the user)
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // Trigger the email sign-in flow
+    const result = await signIn('email', { email, redirect: false });
+    if (result.error) {
+      // Handle error (e.g., show a notification or message to the user)
+      console.error(result.error);
     }
+    console.log("SignIn Email Sent")
   };
 
   return (
     <div>
-      {!isLinkSent ? (
-        <>
-          <input 
-            type="email" 
-            value={email} 
-            onChange={(e) => setEmail(e.target.value)} 
-            placeholder="Enter your email" 
+      <h1>Buyer Login</h1>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
           />
-          <button onClick={handleSendLink}>Send Link</button>
-          {emailError && <p>{emailError}</p>}
-        </>
-      ) : (
-        <p>Please check your email and click on the magic link to continue.</p>
-      )}
+        </div>
+        <div>
+          <button type="submit">Send Sign-In Email</button>
+        </div>
+      </form>
     </div>
   );
 }
-
-export default LoginPage;
