@@ -8,7 +8,7 @@ export default function BuyerLogin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Trigger the email sign-in flow
-    const result = await signIn('email', { email, redirect: false });
+    const result = await signIn('email', { email, callbackUrl: '/buyers/dashboard.js', redirect: false });
     if (result.error) {
       // Handle error (e.g., show a notification or message to the user)
       console.error(result.error);

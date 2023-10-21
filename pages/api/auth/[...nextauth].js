@@ -4,9 +4,6 @@ import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { MongoClient } from 'mongodb';
 
 export default async (req, res) => {
-    console.log(process.env.MONGODB_URI)
-    console.log(process.env.EMAIL_SERVER,)
-    console.log(process.env.EMAIL_FROM)
   const client = await MongoClient.connect(process.env.MONGODB_URI, {
   });
 
@@ -18,5 +15,13 @@ export default async (req, res) => {
       }),
     ],
     adapter: MongoDBAdapter(client),
+    callbacks: {
+      async redirect({ url, baseUrl }) {
+        if (url ==='http://localhost:3000') {
+          return `${baseUrl}/buyers/dashboard`;
+        }
+        return baseUrl;
+      },
+    }
   });
 };

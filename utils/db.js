@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-console.log(process.env.MONGODB_URI)
 async function dbConnect() {
   // Check if we're already connected to the database
   if (mongoose.connection.readyState === 1) {
