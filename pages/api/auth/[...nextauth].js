@@ -10,8 +10,12 @@ export default async (req, res) => {
   return NextAuth(req, res, {
     providers: [
       EmailProvider({
-        server: process.env.EMAIL_SERVER,
-        from: process.env.EMAIL_FROM,
+        server: {
+          host: 'localhost',
+          port: 1025,
+          auth: null
+        },
+        from: 'MailHog@localServer.com',
       }),
     ],
     adapter: MongoDBAdapter(client),
