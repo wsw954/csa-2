@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { MongoClient } from 'mongodb';
-import axios from 'axios';
 
 export default async (req, res) => {
   const client = await MongoClient.connect(process.env.MONGODB_URI, {});

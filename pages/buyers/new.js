@@ -4,6 +4,8 @@ import styles from "@/styles/Home.module.css";
 import { useState } from 'react';
 import axios from 'axios';
 
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export default function NewBuyer() {
   const [formData, setFormData] = useState({
@@ -20,6 +22,7 @@ export default function NewBuyer() {
     creditScore: '',
   });
   const [message, setMessage] = useState('');
+  const router = useRouter();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -57,7 +60,16 @@ export default function NewBuyer() {
       throw new Error(`MongoDB: ${response.data.error}`);
     }
 
-    setMessage('Buyer registration successful!');
+       // Auto-login the user after successful registration
+       const loginResult = await signIn('email', { email: formData.email, redirect: false });
+       if (loginResult.error) {
+           console.error(loginResult.error);
+           // Handle error (e.g., show a notification or message to the user)
+           return;
+       }
+   
+       // Redirect to the dashboard
+       router.push('/buyers/dashboard');
   };
 
   return (
