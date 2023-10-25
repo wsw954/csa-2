@@ -2,10 +2,10 @@ import NextAuth from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import { MongoDBAdapter } from '@auth/mongodb-adapter';
 import { MongoClient } from 'mongodb';
+import axios from 'axios';
 
 export default async (req, res) => {
-  const client = await MongoClient.connect(process.env.MONGODB_URI, {
-  });
+  const client = await MongoClient.connect(process.env.MONGODB_URI, {});
 
   return NextAuth(req, res, {
     providers: [
@@ -13,7 +13,7 @@ export default async (req, res) => {
         server: {
           host: 'localhost',
           port: 1025,
-          auth: null
+          auth: null,
         },
         from: 'MailHog@localServer.com',
       }),
@@ -21,11 +21,11 @@ export default async (req, res) => {
     adapter: MongoDBAdapter(client),
     callbacks: {
       async redirect({ url, baseUrl }) {
-        if (url ==='http://localhost:3000') {
+        if (url === 'http://localhost:3000') {
           return `${baseUrl}/buyers/dashboard`;
         }
         return baseUrl;
       },
-    }
+    },
   });
 };

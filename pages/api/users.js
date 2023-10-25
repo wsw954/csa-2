@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   });
 
   // Extract query parameters
-  const { action, username, email } = req.query;
+  const { action, username, email, context } = req.query;
 
   if (req.method === "GET") {
     switch (action) {
@@ -37,11 +37,14 @@ export default async function handler(req, res) {
           return res.status(409).json({ error: "Username already exists" });
         break;
       case "check-email":
-        if (!email)
-          return res.status(400).json({ error: "Missing email parameter" });
+        if (!email) return res.status(400).json({ error: "Missing email parameter" });
         const userByEmail = await User.findOne({ email });
-        if (userByEmail)
+        
+        if (context === "login" && !userByEmail) {
+          return res.status(409).json({ error: "Email does not exist" });
+        } else if (context === "register" && userByEmail) {
           return res.status(409).json({ error: "Email already exists" });
+        }
         break;
       default:
         return res.status(400).json({ error: "Invalid action" });

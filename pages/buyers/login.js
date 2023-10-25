@@ -1,20 +1,41 @@
 // pages/buyers/login.js
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import axios from 'axios';
 
 export default function BuyerLogin() {
   const [email, setEmail] = useState('');
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Trigger the email sign-in flow
-    const result = await signIn('email', { email, callbackUrl: '/buyers/dashboard.js', redirect: false });
-    if (result.error) {
+  
+    // Check if the email exists in the database using axios
+    try {
+      const response = await axios.get(`/api/users?action=check-email&email=${email}&context=login`);
+      ;
+  
+      if (response.data.error) {
+        console.error(response.data.error);
+        // Handle error (e.g., show a notification or message to the user)
+        return;
+      }
+  
+      // Trigger the email sign-in flow
+      const result = await signIn('email', { email, callbackUrl: '/buyers/dashboard.js', redirect: false });
+      if (result.error) {
+        console.error(result.error);
+        // Handle error (e.g., show a notification or message to the user)
+        return;
+      }
+      console.log("SignIn Email Sent");
+    } catch (error) {
+      console.error("Error verifying email:", error);
       // Handle error (e.g., show a notification or message to the user)
-      console.error(result.error);
     }
-    console.log("SignIn Email Sent")
   };
+  
+
 
   return (
     <div>

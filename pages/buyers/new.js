@@ -4,6 +4,7 @@ import styles from "@/styles/Home.module.css";
 import { useState } from 'react';
 import axios from 'axios';
 
+
 export default function NewBuyer() {
   const [formData, setFormData] = useState({
     username: '',
@@ -39,7 +40,8 @@ export default function NewBuyer() {
 
     // Check if email already exists
     try {
-      await axios.get(`/api/users?action=check-email&email=${formData.email}`);
+      await axios.get(`/api/users?action=check-email&email=${formData.email}&context=register`);
+      ;
     } catch (error) {
       if (error.response && error.response.data.error) {
         console.log("Line 45 in /buyers/new.js")
