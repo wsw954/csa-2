@@ -22,6 +22,7 @@ export default function NewBuyer() {
     creditScore: '',
   });
   const [message, setMessage] = useState('');
+  const [registrationStatus, setRegistrationStatus] = useState('');
   const router = useRouter();
 
   const handleChange = (e) => {
@@ -68,8 +69,7 @@ export default function NewBuyer() {
            return;
        }
    
-       // Redirect to the dashboard
-       router.push('/buyers/dashboard');
+       setRegistrationStatus('Please check your email and click on the magic link to complete the registration.');
   };
 
   return (
@@ -93,6 +93,7 @@ export default function NewBuyer() {
         <button type="submit">Register</button>
       </form>
       {message && <p>{message}</p>}
+{registrationStatus && <p>{registrationStatus}</p>}
     </div>
   );
 }

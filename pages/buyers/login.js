@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function BuyerLogin() {
   const [email, setEmail] = useState('');
-
+  const [emailSent, setEmailSent] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +29,7 @@ export default function BuyerLogin() {
         return;
       }
       console.log("SignIn Email Sent");
+      setEmailSent(true);
     } catch (error) {
       console.error("Error verifying email:", error);
       // Handle error (e.g., show a notification or message to the user)
@@ -40,22 +41,26 @@ export default function BuyerLogin() {
   return (
     <div>
       <h1>Buyer Login</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <button type="submit">Send Sign-In Email</button>
-        </div>
-      </form>
+      {emailSent ? (
+        <p>Check your email for the sign-in link!</p> // Message to display once the email is sent
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <button type="submit">Send Sign-In Email</button>
+          </div>
+        </form>
+      )}
     </div>
   );
 }
