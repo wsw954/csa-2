@@ -1,10 +1,10 @@
-
 import NavBar from "/components/global/NavBar";
 import styles from "@/styles/Home.module.css";
+import withAuth from "components/global/withAuth";
 
+function Dashboard() {
 
-export default function Dashboard() {
-
+ 
 
 
   return     (
@@ -26,3 +26,6 @@ export default function Dashboard() {
     </div>
   )
 }
+
+
+export default withAuth(Dashboard)
